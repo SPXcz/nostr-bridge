@@ -1,0 +1,35 @@
+{
+    "manifest_version": 3,
+    "name": "Nostr Bridge",
+    "version": "1.0.0",
+    "description": "An extension that allows the utilization of threshold cryptography for generation and storage of nsec keys.",
+    "content_scripts": [
+        {
+            "run_at": "document_end",
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content-script.build.js"
+            ],
+            "all_frames": true
+        }
+    ],
+    "permissions": [
+        "windows"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "nostr-provider.js"
+            ],
+            "matches": [
+                "https://*/*",
+                "http://localhost:*/*",
+                "http://0.0.0.0:*/*",
+                "http://127.0.0.1:*/*",
+                "http://*.localhost/*"
+            ]
+        }
+    ]
+}

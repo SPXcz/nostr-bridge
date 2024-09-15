@@ -1,0 +1,31 @@
+{
+  "name": "nostr_bridge",
+  "description": "An extension that allows the utilization of threshold cryptography for generation and storage of nsec keys.",
+  "version": "1.0.0",
+  "scripts": {
+    "proto": "protoc -I=. meesign.proto --js_out=import_style=commonjs,binary:extension --grpc-web_out=import_style=commonjs,mode=grpcweb:extension",
+    "bundle": "npx webpack --mode production ./extension/nostr-provider.js --output-filename nostr-provider.js -o dist",
+    "copy": "cp extension/content-script.build.js extension/manifest.json dist/",
+    "build": "npm run proto && npm run bundle && npm run copy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KristianMika/nostr-bridge"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "homepage": "tbd",
+  "devDependencies": {
+    "@grpc/grpc-js": "~1.0.5",
+    "@grpc/proto-loader": "~0.5.4",
+    "async": "~1.5.2",
+    "google-protobuf": "~3.21.4",
+    "grpc-web": "~1.5.0",
+    "lodash": "~4.17.0",
+    "webpack": "~5.82.1",
+    "webpack-cli": "~5.1.1",
+    "xhr2": "~0.2.1",
+    "nostr-tools": "~1.17.0"
+  }
+}
