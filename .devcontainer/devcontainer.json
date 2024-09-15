@@ -1,0 +1,17 @@
+{
+    "name": "Nostr Bridge Dev",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "remoteUser": "dev",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "xabikos.JavaScriptSnippets",
+                "dbaeumer.vscode-eslint",
+                "sburg.vscode-javascript-booster",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    }
+}
