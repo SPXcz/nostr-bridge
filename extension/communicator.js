@@ -216,6 +216,23 @@ const fetchEventSignature = async (client, taskId) => {
     );
 };
 
+const hexStringToUint8Array = (hexString) => {
+    if (hexString.length % 2 !== 0) {
+        throw "Invalid hexString";
+    }
+    var arrayBuffer = new Uint8Array(hexString.length / 2);
+
+    for (var i = 0; i < hexString.length; i += 2) {
+        var byteValue = parseInt(hexString.substr(i, 2), 16);
+        if (isNaN(byteValue)) {
+            throw "Invalid hexString";
+        }
+        arrayBuffer[i / 2] = byteValue;
+    }
+
+    return arrayBuffer;
+}
+
 export const signEvent = async (event, groupId) => {
     event.created_at = Math.floor(Date.now() / 1000);
 
@@ -228,7 +245,7 @@ export const signEvent = async (event, groupId) => {
     var request = new SignRequest();
     request.setName(createTaskName(event));
     request.setGroupId(groupId);
-    request.setData(eventId);
+    request.setData(hexStringToUint8Array(eventId));
 
     let response = await client.sign(request, {});
     let taskId = response.getId();
