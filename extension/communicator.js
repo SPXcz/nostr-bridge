@@ -154,7 +154,7 @@ const filterNostrGroups = (groups) =>
     groups.filter(
         (group) =>
             group.getKeyType() === KeyType.SIGNCHALLENGE &&
-            (group.getProtocol() === ProtocolType.MUSIG2 || group.getProtocol() === ProtocolType.FROST) &&
+            group.getProtocol() === ProtocolType.MUSIG2 &&
             group.getName().toLowerCase().includes("nostr")
     );
 
