@@ -154,8 +154,8 @@ const filterNostrGroups = (groups) =>
     groups.filter(
         (group) =>
             group.getKeyType() === KeyType.SIGNCHALLENGE &&
-            group.getProtocol() === ProtocolType.MUSIG2 &&
-            group.getName().toLowerCase().includes("nostr")
+            group.getProtocol() === ProtocolType.MUSIG2 //&&
+            // group.getName().toLowerCase().includes("nostr")
     );
 
 export const getGroupKeys = async () => {
@@ -163,11 +163,16 @@ export const getGroupKeys = async () => {
     var request = new GroupsRequest();
 
     let allGroups = (await client.getGroups(request, {})).getGroupsList();
+
+    if (allGroups.length === 0) {
+        throw new Error("No groups found in Meesign");
+    }
+
     let nostrGroups = filterNostrGroups(allGroups);
     if (nostrGroups.length === 0) {
         throw new Error("No nostr groups found");
     }
-    let selectedGroup = nostrGroups[0];
+    let selectedGroup = nostrGroups.slice(-1).pop();
     // TODO: Consider working with Uint8Arrays, though they are not supported on all browsers
     let groupId = selectedGroup.getIdentifier_asB64();
     let pubkeyHex = formatReceivedPublicKey(groupId);
